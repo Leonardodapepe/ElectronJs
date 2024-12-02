@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>System Information</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      line-height: 1.6;
+    }
+    pre {
+      background-color: #f4f4f4;
+      padding: 10px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>System Information</h1>
+  <div id="info"></div>
+  <script>
+    // Ensure the window.systemInfo object exists
+    if (window.systemInfo && window.systemInfo.getSystemInfo) {
+      const info = window.systemInfo.getSystemInfo();
+      const infoDiv = document.getElementById('info');
+  
+      const formattedInfo = `
+        Platform: ${info.platform}
+        Architecture: ${info.arch}
+        CPU: ${info.cpu[0].model} (${info.cpu.length} cores)
+        Total Memory: ${(info.totalMemory / 1024 / 1024 / 1024).toFixed(2)} GB
+        Free Memory: ${(info.freeMemory / 1024 / 1024 / 1024).toFixed(2)} GB
+        Uptime: ${(info.uptime / 3600).toFixed(2)} hours
+        Hostname: ${info.hostname}
+      `;
+  
+      infoDiv.innerHTML = `<pre>${formattedInfo}</pre>`;
+    } else {
+      console.error('System information could not be retrieved.');
+    }
+  </script>
+  
+</body>
+</html>
